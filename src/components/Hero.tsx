@@ -1,4 +1,4 @@
-//import Lanyard from './Lanyard';
+import Lanyard from './Lanyard';
 
 export default function Hero() {
   return (
@@ -24,14 +24,10 @@ export default function Hero() {
             </span>
           </div>
         </div>
+      </div>
 
-        <div className="hero-right">
-          <Lanyard
-            fov={20}
-            cardScale={4}
-            lineWidth={3}
-          />
-        </div>
+      <div className="hero-right">
+        <Lanyard position={[0, 0, 11]} fov={30} gravity={[0, -40, 0]} />
       </div>
     </section>
   );

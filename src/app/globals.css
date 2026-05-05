@@ -135,7 +135,8 @@ nav.scrolled {
   font-style: italic;
   font-size: clamp(16px, 2vw, 22px);
   color: var(--muted);
-  max-width: 380px;
+  max-width: 700px;
+  pointer-events: auto;
   line-height: 1.4;
 }
 .hero-role span { color: var(--fg); font-style: normal; }
@@ -159,7 +160,8 @@ nav.scrolled {
   align-items: flex-end;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .hero-left {
@@ -167,16 +169,17 @@ nav.scrolled {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  pointer-events: auto;
 }
 
 .hero-right {
-  flex: 1;
-  height: 100vh;
   position: absolute;
   top: 0;
   right: 0;
   width: 50%;
-  pointer-events: none;
+  height: 100vh;
+  pointer-events: auto;
+  z-index: 5;
 }
 
 .hero-right > * {
