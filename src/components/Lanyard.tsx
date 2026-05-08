@@ -18,7 +18,7 @@ import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
-const cardGLB = '/card.glb';
+const cardGLB = '/Updated Card.glb';
 const lanyardTexture = '/lanyard.png';
 
 export default function Lanyard({ 
