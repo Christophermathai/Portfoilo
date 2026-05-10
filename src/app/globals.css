@@ -582,6 +582,54 @@ footer {
   transform: translateY(0);
 }
 
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(8, 8, 8, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease forwards;
+}
+.modal-content {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 4rem;
+  max-width: 800px;
+  width: 100%;
+  position: relative;
+  animation: slideUpModal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+  font-family: inherit;
+}
+.modal-close:hover {
+  color: var(--accent);
+  transform: scale(1.1);
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUpModal {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 768px) {
   nav { padding: 1.2rem 1.5rem; }
   nav.scrolled { padding: 0.8rem 1.5rem; }
@@ -594,4 +642,26 @@ footer {
   .edu-list { grid-template-columns: 1fr; gap: 1.5rem; }
   .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
   footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  .modal-overlay { padding: 1rem; }
+  .modal-content { padding: 2.5rem 1.5rem; }
+}
+
+/* Animated Active Project Background */
+.animated-bg {
+  background: linear-gradient(135deg, rgba(255, 61, 0, 0.15), rgba(17, 17, 16, 1), rgba(255, 61, 0, 0.08), rgba(17, 17, 16, 1));
+  background-size: 300% 300%;
+  animation: gradientFlow 10s ease infinite;
+}
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animated-glow {
+  animation: pulseGlow 8s ease-in-out infinite;
+}
+@keyframes pulseGlow {
+  0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
 }
