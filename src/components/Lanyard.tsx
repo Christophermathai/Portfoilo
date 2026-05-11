@@ -25,8 +25,8 @@ declare module '@react-three/fiber' {
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
-const cardGLB = '/Updated Card.glb';
-const lanyardTexture = '/lanyard.png';
+const cardGLB = '/optimised-card.glb';
+const lanyardTexture = '/lanyard.avif';
 
 export default function Lanyard({
   position = [0, 0, 13] as [number, number, number],
