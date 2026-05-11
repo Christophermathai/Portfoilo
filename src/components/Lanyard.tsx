@@ -28,23 +28,32 @@ extend({ MeshLineGeometry, MeshLineMaterial });
 const cardGLB = '/Updated Card.glb';
 const lanyardTexture = '/lanyard.png';
 
-export default function Lanyard({ 
-  position = [0, 0, 13] as [number, number, number], 
-  gravity = [0, -20, 0] as [number, number, number], 
-  fov = 30, 
-  transparent = true 
+export default function Lanyard({
+  position = [0, 0, 13] as [number, number, number],
+  gravity = [0, -20, 0] as [number, number, number],
+  fov = 30,
+  transparent = true
 }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <div className="lanyard-container" style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 0, pointerEvents: 'auto' }}>
       <Canvas
-        camera={{ position, fov, near: 0.1, far: 1000 }}
+        camera={{ position: isMobile ? [position[0], position[1], position[2] * 0.75] : position, fov, near: 0.1, far: 1000 }}
         dpr={[1, 2]}
         gl={{ alpha: transparent, antialias: true }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
         <ambientLight intensity={Math.PI / 2} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-        
+
         <Physics gravity={gravity} timeStep={1 / 60} interpolate>
           <Band />
         </Physics>
@@ -67,7 +76,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
   const j2 = useRef<any>(null);
   const j3 = useRef<any>(null);
   const card = useRef<any>(null);
-  
+
   const vec = new THREE.Vector3();
   const ang = new THREE.Vector3();
   const rot = new THREE.Vector3();
@@ -100,7 +109,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
 
   useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]);
   useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
-  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]);
+  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1.5]);
   useSphericalJoint(j3, card, [
     [0, 0, 0],
     [0, 1.45, 0]
@@ -157,7 +166,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
         curve.points[1].copy(t1);
         curve.points[2].copy(t2);
         curve.points[3].copy(t3);
-        
+
         const points = curve.getPoints(isMobile ? 16 : 32);
         const hasDistance = points.length > 1 && points[0].distanceTo(points[points.length - 1]) > 0.01;
 
@@ -239,7 +248,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
           useMap
           map={texture}
           repeat={[-4, 1]}
-          lineWidth={1}
+          lineWidth={isMobile ? 0.6 : 1}
         />
       </mesh>
     </>

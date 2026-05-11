@@ -27,7 +27,7 @@ export default function Hero() {
       </div>
 
       <div className="hero-right">
-        <Lanyard position={[0, 0, 11]} fov={30} gravity={[0, -40, 0]} />
+        <Lanyard position={[0, 0, 9]} fov={30} gravity={[0, -40, 0]} />
       </div>
     </section>
   );

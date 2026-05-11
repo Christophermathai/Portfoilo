@@ -198,8 +198,8 @@ nav.scrolled {
     top: 0;
     right: 0;
     width: 100%;
-    z-index: -1;
-    opacity: 0.6;
+    z-index: 1;
+    opacity: 1;
   }
 }
 
@@ -533,6 +533,14 @@ section { padding: 8rem 3rem; position: relative; }
 .contact-links {
   display: flex; justify-content: center; gap: 2.5rem;
   margin-top: 2rem;
+}
+@media (max-width: 768px) {
+  .contact-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 1rem;
+    text-align: center;
+  }
 }
 .contact-link {
   font-size: 11px;
