@@ -9,6 +9,36 @@ import CustomCursor from '@/components/CustomCursor';
 export default function ProjectsPage() {
   useScrollReveal();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [activeProject, setActiveProject] = useState<Project>({
+    ...currentProject,
+    name: 'ERROR'
+  });
+
+  useEffect(() => {
+    fetch('/api/github-feed')
+      .then(res => res.text())
+      .then(xmlString => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(xmlString, 'application/xml');
+        const entry = doc.querySelector('entry');
+        if (entry) {
+          const link = entry.querySelector('link');
+          const href = link?.getAttribute('href');
+          if (href) {
+            const parts = href.split('/');
+            if (parts.length >= 5) {
+              const repoName = parts[4];
+              setActiveProject(prev => ({
+                ...prev,
+                name: repoName.replace(/-/g, ' ').toUpperCase(),
+                github: `https://github.com/Christophermathai/${repoName}`
+              }));
+            }
+          }
+        }
+      })
+      .catch(err => console.error('Failed to fetch latest repo feed:', err));
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -29,7 +59,7 @@ export default function ProjectsPage() {
   return (
     <>
       <CustomCursor />
-      <section style={{ minHeight: '100vh', background: 'var(--bg)' }}>
+      <section style={{ minHeight: '100vh', background: 'var(--bg)', paddingTop: '4rem' }}>
         <Link
           href="/#works"
           style={{
@@ -41,7 +71,7 @@ export default function ProjectsPage() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            marginBottom: '6rem',
+            marginBottom: '2rem',
             transition: 'color 0.2s',
             borderBottom: '1px solid transparent',
             paddingBottom: '2px'
@@ -68,13 +98,12 @@ export default function ProjectsPage() {
 
           <div
             className="project-card reveal animated-bg"
-            onClick={() => setSelectedProject(currentProject)}
             style={{
-              cursor: 'pointer',
               border: '1px solid var(--accent)',
               position: 'relative',
               boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
-              transform: 'translateZ(0)' // Hardware acceleration
+              transform: 'translateZ(0)', // Hardware acceleration
+              width: '100%'
             }}
           >
             {/* Ambient glow behind the card */}
@@ -89,19 +118,32 @@ export default function ProjectsPage() {
             }}></div>
 
             <div style={{ position: 'relative', zIndex: 1 }}>
-              <span className="project-num" style={{ color: 'var(--accent)' }}>{currentProject.num}</span>
+              <span className="project-num" style={{ color: 'var(--accent)' }}>{activeProject.num}</span>
               <div className="project-arrow" style={{ color: 'var(--accent)' }}>↗</div>
-              <h3 className="project-name" style={{ fontSize: 'clamp(40px, 6vw, 72px)', textShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>{currentProject.name}</h3>
-              <p className="project-desc" style={{ fontSize: '14px', maxWidth: '800px' }}>{currentProject.desc}</p>
-              <div className="project-stack">
-                {currentProject.stack.map((tag) => (
-                  <span className="stack-tag" key={tag} style={{
-                    borderColor: 'rgba(255, 61, 0, 0.3)',
-                    color: 'var(--fg)',
-                    background: 'rgba(255, 61, 0, 0.1)'
-                  }}>{tag}</span>
-                ))}
-              </div>
+              <h3 className="project-name" style={{ fontSize: 'clamp(32px, 4vw, 48px)', textShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>{activeProject.name}</h3>
+              {activeProject.github && (
+                <a
+                  href={activeProject.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: 'inline-block',
+                    fontFamily: "'Bebas Neue', sans-serif",
+                    fontSize: '16px',
+                    letterSpacing: '0.1em',
+                    color: 'var(--bg)',
+                    background: 'var(--accent)',
+                    padding: '8px 20px',
+                    textDecoration: 'none',
+                    transition: 'opacity 0.2s',
+                    marginTop: '1.5rem'
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
+                  onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+                >
+                  VIEW ON GITHUB ↗
+                </a>
+              )}
             </div>
           </div>
         </div>
