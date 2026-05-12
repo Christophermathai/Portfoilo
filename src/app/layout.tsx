@@ -4,14 +4,14 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portfoilo-sigma-umber.vercel.app"),
+  metadataBase: new URL("https://christophermathai.vercel.app"),
   title: {
     default: "Christopher Mathai | Full-Stack Developer & AI Engineer",
     template: "%s | Christopher Mathai",
   },
   description: "Portfolio of Christopher Mathai, a Full-Stack Developer and AI Engineer based in Ernakulam, Kerala, specializing in AI-integrated systems and scalable web applications.",
   keywords: ["Christopher Mathai", "Full-Stack Developer", "AI Engineer", "Software Engineer", "Web Developer", "React", "Next.js", "Kerala", "India"],
-  authors: [{ name: "Christopher Mathai", url: "https://portfoilo-sigma-umber.vercel.app" }],
+  authors: [{ name: "Christopher Mathai", url: "https://christophermathai.vercel.app" }],
   creator: "Christopher Mathai",
   verification: {
     google: "T5OGafcDfkJcnsDRu-NEJEyart-PnzXdJehrrXBpatU",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://portfoilo-sigma-umber.vercel.app",
+    url: "https://christophermathai.vercel.app",
     title: "Christopher Mathai | Full-Stack Developer & AI Engineer",
     description: "Building AI-integrated systems and scalable web applications from Kerala to the cloud.",
     siteName: "Christopher Mathai Portfolio",
@@ -89,7 +89,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               name: "Christopher Mathai",
-              url: "https://portfoilo-sigma-umber.vercel.app",
+              url: "https://christophermathai.vercel.app",
               jobTitle: "Full-Stack Developer & AI Engineer",
               address: {
                 "@type": "PostalAddress",
