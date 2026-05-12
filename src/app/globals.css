@@ -36,6 +36,11 @@ body:has(a:hover) #cursor, body:has(button:hover) #cursor {
   background: transparent;
   border: 1.5px solid var(--accent);
 }
+/* Hide custom cursor on touch devices */
+@media (pointer: coarse) {
+  body { cursor: auto; }
+  #cursor { display: none; }
+}
 
 /* NAV */
 nav {
@@ -449,7 +454,7 @@ section { padding: 8rem 3rem; position: relative; }
 .ach-item:hover { background: #161615; }
 .ach-place {
   font-family: var(--font-bebas), sans-serif;
-  font-size: 64px;
+  font-size: clamp(36px, 6vw, 64px);
   line-height: 1;
   color: var(--border);
   margin-bottom: 0.5rem;
@@ -467,6 +472,7 @@ section { padding: 8rem 3rem; position: relative; }
   font-size: 11px;
   letter-spacing: 0.06em;
   color: var(--muted);
+  word-break: break-word;
 }
 
 /* EDUCATION */
@@ -652,12 +658,33 @@ footer {
   #hero { padding: 0 1.5rem 4rem; }
   .about-grid { grid-template-columns: 1fr; gap: 3rem; }
   .projects-grid { grid-template-columns: 1fr; }
+  /* 2 cols on tablet, single col on phone handled below */
   .ach-grid { grid-template-columns: 1fr 1fr; }
+  .ach-item { padding: 1.5rem; }
   .edu-list { grid-template-columns: 1fr; gap: 1.5rem; }
   .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
   footer { flex-direction: column; gap: 0.5rem; text-align: center; }
   .modal-overlay { padding: 1rem; }
   .modal-content { padding: 2.5rem 1.5rem; }
+}
+
+/* Phone: single column achievements */
+@media (max-width: 480px) {
+  section { padding: 4rem 1.25rem; }
+  .ach-grid {
+    grid-template-columns: 1fr;
+    border: none;
+    gap: 0;
+  }
+  .ach-item {
+    padding: 1.25rem 1rem;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .ach-item:first-child { border-top: 1px solid var(--border); }
+  .ach-place { font-size: clamp(32px, 10vw, 48px); }
+  .ach-venue { font-size: 10.5px; }
 }
 
 /* Animated Active Project Background */

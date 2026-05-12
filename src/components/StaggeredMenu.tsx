@@ -304,7 +304,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         .sm-panel-itemLabel {
           display: inline-block; transform-origin: 0% 100%;
           transform: translateY(120%) rotate(5deg); opacity: 0;
-          transition: transform 0.5s var(--transition-ease), opacity 0.5s;
+          transition: transform 0.25s var(--transition-ease), opacity 0.2s;
+          transition-delay: 0s;
         }
         .sm-scope.open .sm-panel-itemLabel {
           transform: translateY(0) rotate(0); opacity: 1;
@@ -314,13 +315,24 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
         /* Socials */
         .sm-socials { margin-top: auto; padding-top: 2rem; border-top: 1px solid var(--border); }
-        .sm-socials-title { margin: 0 0 1rem 0; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--sm-accent); text-transform: uppercase; }
+        .sm-socials-title {
+          margin: 0 0 1rem 0; font-family: 'DM Mono', monospace; font-size: 11px;
+          letter-spacing: 0.1em; color: var(--sm-accent); text-transform: uppercase;
+          /* exit: fade out fast */
+          opacity: 0; transition: opacity 0.15s ease; transition-delay: 0s;
+        }
+        .sm-scope.open .sm-socials-title {
+          opacity: 1; transition: opacity 0.4s ease; transition-delay: 0.45s;
+        }
         .sm-socials-list { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.5rem; flex-wrap: wrap; }
         
+        /* Closed state: instantly hidden (no delay, fast fade) */
         .sm-socials-item {
           transform: translateY(20px); opacity: 0;
-          transition: transform 0.4s var(--transition-ease), opacity 0.4s;
+          transition: transform 0.15s var(--transition-ease), opacity 0.15s;
+          transition-delay: 0s;
         }
+        /* Open state: staggered slide-up */
         .sm-scope.open .sm-socials-item {
           transform: translateY(0); opacity: 1;
           transition: transform 0.6s var(--transition-ease), opacity 0.6s;

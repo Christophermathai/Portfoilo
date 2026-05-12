@@ -1,51 +1,58 @@
 "use client";
 
-import { useProgress } from "@react-three/drei";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface LoaderProps {
   onComplete: () => void;
 }
 
 export default function Loader({ onComplete }: LoaderProps) {
-  const { progress } = useProgress();
+  const [progress, setProgress] = useState(0);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
 
   useEffect(() => {
-    if (progress === 100) {
-      // Small delay to let the user see 100% and then trigger the slide out
-      const t1 = setTimeout(() => {
-        setIsFadingOut(true);
-        // Trigger onComplete slightly after slide out starts so the card falls into view as the loader clears
-        setTimeout(() => {
-          onComplete();
-        }, 300);
-      }, 600);
+    // Animate progress to 100 over ~700ms using easing
+    const DURATION = 700;
+    const start = performance.now();
 
-      const t2 = setTimeout(() => {
-        setIsHidden(true);
-      }, 1600); // 600ms + 1s for animation to complete
+    const raf = requestAnimationFrame(function tick(now) {
+      const elapsed = now - start;
+      const t = Math.min(elapsed / DURATION, 1);
+      // Ease-out cubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      setProgress(Math.round(eased * 100));
 
-      return () => {
-        clearTimeout(t1);
-        clearTimeout(t2);
-      };
-    }
-  }, [progress, onComplete]);
+      if (t < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        // Progress hit 100 — brief pause then exit
+        const t1 = setTimeout(() => {
+          setIsFadingOut(true);
+          setTimeout(() => onCompleteRef.current(), 300);
+        }, 150);
+        const t2 = setTimeout(() => setIsHidden(true), 1150);
+        return () => { clearTimeout(t1); clearTimeout(t2); };
+      }
+    });
+
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   if (isHidden) return null;
 
   return (
-    <div className={`loader-overlay ${isFadingOut ? 'loader-exit' : ''}`}>
+    <div className={`loader-overlay ${isFadingOut ? "loader-exit" : ""}`}>
       <div className="loader-content">
         <div className="loader-logo">CM</div>
         <div className="loader-progress">
-          <div className="loader-progress-text">{Math.round(progress)}%</div>
+          <div className="loader-progress-text">{progress}%</div>
           <div className="loader-progress-bar-bg">
-            <div 
-              className="loader-progress-bar-fill" 
-              style={{ width: `${progress}%` }} 
+            <div
+              className="loader-progress-bar-fill"
+              style={{ width: `${progress}%` }}
             />
           </div>
         </div>
