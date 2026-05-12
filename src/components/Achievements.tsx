@@ -3,8 +3,8 @@ const achievements = [
   { place: "2ND", event: "Build-A-Thon 2.0", venue: "Month-long hackathon · STACC at CUSAT" },
   { place: "2ND", event: "Binary Battle", venue: "TecXell 2024 · MITS Ernakulam" },
   { place: "2ND", event: "Binary Brainstorm", venue: "TecXell 2023 · MITS Ernakulam" },
-  { place: "PUB", event: "AI in Medical Robotics", venue: "Research paper · ICAET 2025" },
-  { place: "PUB", event: "Deepfakes & Cyber Threats", venue: "Publication · National Conference 2023" },
+  { place: "PRESENTED", event: "AI in Medical Robotics", venue: "Research paper · ICAET 2025" },
+  { place: "PRESENTED", event: "Deepfakes & Cyber Threats", venue: "Publication · National Conference 2023" },
 ];
 
 export default function Achievements() {

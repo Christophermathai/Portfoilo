@@ -1,6 +1,6 @@
 const educationItems = [
   {
-    school: "CUSAT",
+    school: "Cochin University of Science and Technology",
     degree: "Master of Computer Science",
     year: "2025 – 2027",
     spec: "Specialization in Artificial Intelligence",
@@ -9,7 +9,7 @@ const educationItems = [
     school: "Rajagiri College of Management & Applied Science",
     degree: "Bachelor of Computer Applications",
     year: "2022 – 2025",
-    spec: "BCA · Ernakulam, Kerala",
+    spec: "",
   },
 ];
 
