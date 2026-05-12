@@ -11,7 +11,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-dm-mono), monospace;
   font-size: 14px;
   line-height: 1.7;
   cursor: none;
@@ -52,7 +52,7 @@ nav.scrolled {
   padding: 1rem 3rem;
 }
 .nav-name {
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-dm-mono), monospace;
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -87,7 +87,7 @@ nav.scrolled {
 .hero-bg-number {
   position: absolute;
   top: 50%; left: 50%; transform: translate(-50%, -55%);
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-size: clamp(300px, 40vw, 600px);
   color: var(--surface);
   pointer-events: none;
@@ -110,7 +110,7 @@ nav.scrolled {
   animation: fadeUp 0.6s 0.1s forwards;
 }
 .hero-name {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-size: clamp(72px, 12vw, 180px);
   line-height: 0.92;
   letter-spacing: -0.01em;
@@ -137,7 +137,7 @@ nav.scrolled {
   animation: fadeUp 0.6s 0.7s forwards;
 }
 .hero-role {
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-instrument), serif;
   font-style: italic;
   font-size: clamp(16px, 2vw, 22px);
   color: var(--muted);
@@ -238,13 +238,13 @@ section { padding: 8rem 3rem; position: relative; }
   margin-bottom: 5rem;
 }
 .section-num {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-size: 13px;
   letter-spacing: 0.1em;
   color: var(--accent);
 }
 .section-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-size: clamp(48px, 6vw, 80px);
   letter-spacing: 0.01em;
   line-height: 1;
@@ -268,7 +268,7 @@ section { padding: 8rem 3rem; position: relative; }
   margin-bottom: 2.5rem;
 }
 .stat-num {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-size: 72px;
   line-height: 1;
   color: var(--fg);
@@ -296,7 +296,7 @@ section { padding: 8rem 3rem; position: relative; }
   color: var(--fg);
 }
 .about-bio {
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-instrument), serif;
   font-size: clamp(18px, 2vw, 24px);
   line-height: 1.6;
   color: var(--fg);
@@ -341,7 +341,7 @@ section { padding: 8rem 3rem; position: relative; }
 .project-card:hover { background: #161615; }
 .project-card:hover::before { right: 0; }
 .project-num {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-size: 11px;
   letter-spacing: 0.15em;
   color: var(--accent);
@@ -349,7 +349,7 @@ section { padding: 8rem 3rem; position: relative; }
   display: block;
 }
 .project-name {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-size: clamp(28px, 3vw, 42px);
   letter-spacing: 0.01em;
   line-height: 1.1;
@@ -413,7 +413,7 @@ section { padding: 8rem 3rem; position: relative; }
   padding-top: 4px;
 }
 .exp-role {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-size: 26px;
   letter-spacing: 0.02em;
   margin-bottom: 4px;
@@ -448,7 +448,7 @@ section { padding: 8rem 3rem; position: relative; }
 }
 .ach-item:hover { background: #161615; }
 .ach-place {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-size: 64px;
   line-height: 1;
   color: var(--border);
@@ -480,7 +480,7 @@ section { padding: 8rem 3rem; position: relative; }
 }
 .edu-item:hover { border-color: var(--accent); }
 .edu-degree {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-size: 28px;
   letter-spacing: 0.01em;
   line-height: 1.2;
@@ -503,7 +503,7 @@ section { padding: 8rem 3rem; position: relative; }
   color: var(--muted);
   margin-top: 0.8rem;
   font-style: italic;
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-instrument), serif;
 }
 
 /* CONTACT */
@@ -520,14 +520,14 @@ section { padding: 8rem 3rem; position: relative; }
   margin-bottom: 2rem;
 }
 .contact-headline {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-size: clamp(72px, 12vw, 160px);
   line-height: 0.9;
   letter-spacing: -0.01em;
   margin-bottom: 3rem;
 }
 .contact-email {
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-instrument), serif;
   font-size: clamp(18px, 2.5vw, 28px);
   font-style: italic;
   color: var(--muted);
@@ -701,7 +701,7 @@ footer {
   gap: 2rem;
 }
 .loader-logo {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-bebas), sans-serif;
   font-size: clamp(120px, 15vw, 180px);
   line-height: 1;
   color: var(--accent);
@@ -715,7 +715,7 @@ footer {
   gap: 0.5rem;
 }
 .loader-progress-text {
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-dm-mono), monospace;
   font-size: 14px;
   color: var(--fg);
   letter-spacing: 0.1em;

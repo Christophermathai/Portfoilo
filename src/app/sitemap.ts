@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://christophermathai.com';
+  const baseUrl = 'https://portfoilo-sigma-umber.vercel.app';
 
   return [
     {
@@ -10,12 +10,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 1,
     },
-    // Add other routes here if you create multiple pages (e.g., /projects, /blog)
-    // {
-    //   url: `${baseUrl}/projects`,
-    //   lastModified: new Date(),
-    //   changeFrequency: 'weekly',
-    //   priority: 0.8,
-    // },
   ];
 }

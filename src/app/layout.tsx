@@ -4,19 +4,22 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://christophermathai.com"), // Update with actual domain when deployed
+  metadataBase: new URL("https://portfoilo-sigma-umber.vercel.app"),
   title: {
     default: "Christopher Mathai | Full-Stack Developer & AI Engineer",
     template: "%s | Christopher Mathai",
   },
   description: "Portfolio of Christopher Mathai, a Full-Stack Developer and AI Engineer based in Ernakulam, Kerala, specializing in AI-integrated systems and scalable web applications.",
   keywords: ["Christopher Mathai", "Full-Stack Developer", "AI Engineer", "Software Engineer", "Web Developer", "React", "Next.js", "Kerala", "India"],
-  authors: [{ name: "Christopher Mathai", url: "https://christophermathai.com" }],
+  authors: [{ name: "Christopher Mathai", url: "https://portfoilo-sigma-umber.vercel.app" }],
   creator: "Christopher Mathai",
+  verification: {
+    google: "T5OGafcDfkJcnsDRu-NEJEyart-PnzXdJehrrXBpatU",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://christophermathai.com",
+    url: "https://portfoilo-sigma-umber.vercel.app",
     title: "Christopher Mathai | Full-Stack Developer & AI Engineer",
     description: "Building AI-integrated systems and scalable web applications from Kerala to the cloud.",
     siteName: "Christopher Mathai Portfolio",
@@ -49,6 +52,28 @@ export const metadata: Metadata = {
   },
 };
 
+import { Bebas_Neue, DM_Mono, Instrument_Serif } from 'next/font/google';
+
+const bebasNeue = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-bebas',
+});
+
+const dmMono = DM_Mono({
+  weight: ['300', '400', '500'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  variable: '--font-dm-mono',
+});
+
+const instrumentSerif = Instrument_Serif({
+  weight: '400',
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  variable: '--font-instrument',
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -56,19 +81,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>
+      <body className={`${bebasNeue.variable} ${dmMono.variable} ${instrumentSerif.variable}`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -76,7 +89,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               name: "Christopher Mathai",
-              url: "https://christophermathai.com",
+              url: "https://portfoilo-sigma-umber.vercel.app",
               jobTitle: "Full-Stack Developer & AI Engineer",
               address: {
                 "@type": "PostalAddress",

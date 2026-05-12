@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://christophermathai.com/sitemap.xml',
+    sitemap: 'https://portfoilo-sigma-umber.vercel.app/sitemap.xml',
   };
 }
