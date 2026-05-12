@@ -32,7 +32,8 @@ export default function Lanyard({
   position = [0, 0, 13] as [number, number, number],
   gravity = [0, -20, 0] as [number, number, number],
   fov = 30,
-  transparent = true
+  transparent = true,
+  isReady = true
 }) {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -55,7 +56,7 @@ export default function Lanyard({
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
 
         <Physics gravity={gravity} timeStep={1 / 60} interpolate>
-          <Band />
+          <Band isReady={isReady} />
         </Physics>
 
         <Environment blur={0.75}>
@@ -69,7 +70,7 @@ export default function Lanyard({
   );
 }
 
-function Band({ maxSpeed = 50, minSpeed = 0 }) {
+function Band({ maxSpeed = 50, minSpeed = 0, isReady = true }) {
   const band = useRef<any>(null);
   const fixed = useRef<any>(null);
   const j1 = useRef<any>(null);
@@ -210,7 +211,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
           position={[2, 0, 0]}
           ref={card}
           {...segmentProps}
-          type={dragged ? ('kinematicPosition' as RigidBodyProps['type']) : ('dynamic' as RigidBodyProps['type'])}
+          type={!isReady ? ('fixed' as RigidBodyProps['type']) : dragged ? ('kinematicPosition' as RigidBodyProps['type']) : ('dynamic' as RigidBodyProps['type'])}
         >
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
           <group

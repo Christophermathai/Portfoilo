@@ -1,11 +1,11 @@
 import Lanyard from './Lanyard';
 
-export default function Hero() {
+export default function Hero({ isReady = true }: { isReady?: boolean }) {
   return (
     <section id="hero">
       <div className="hero-bg-number" aria-hidden="true">CM</div>
 
-      <div className="hero-container">
+      <div className={`hero-container ${isReady ? 'ready' : ''}`}>
         <div className="hero-left">
           <div className="hero-tag">Full-Stack Developer &amp; AI Engineer · Ernakulam, Kerala</div>
           <h1 className="hero-name">
@@ -27,7 +27,7 @@ export default function Hero() {
       </div>
 
       <div className="hero-right">
-        <Lanyard position={[0, 0, 9]} fov={30} gravity={[0, -40, 0]} />
+        <Lanyard position={[0, 0, 9]} fov={30} gravity={[0, -40, 0]} isReady={isReady} />
       </div>
     </section>
   );
