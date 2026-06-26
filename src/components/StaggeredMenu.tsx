@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useCallback, useRef, useState, useEffect } from 'react';
-import { audioSynth } from '../utils/audio';
 
 export interface StaggeredMenuItem {
   label: string;
@@ -56,12 +55,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const toggleMenu = useCallback(() => {
     setOpen(prev => {
       const next = !prev;
-      if (next) {
-        audioSynth.playMenuOpen();
-        onMenuOpen?.();
-      } else {
-        onMenuClose?.();
-      }
+      if (next) onMenuOpen?.();
+      else onMenuClose?.();
       return next;
     });
   }, [onMenuOpen, onMenuClose]);
@@ -113,12 +108,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             className="sm-toggle"
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
-            onClick={() => {
-              audioSynth.playClick();
-              toggleMenu();
-            }}
+            onClick={toggleMenu}
             onMouseEnter={() => {
-              audioSynth.playHover();
               if (window.innerWidth >= 1024 && !open) toggleMenu();
             }}
             type="button"
@@ -150,7 +141,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             <ul className="sm-panel-list" data-numbering={displayItemNumbering || undefined}>
               {items.map((it, idx) => (
                 <li className="sm-panel-itemWrap" key={it.label + idx}>
-                  <a href={it.link} className="sm-panel-item" onClick={() => { audioSynth.playClick(); closeMenu(); }} onMouseEnter={() => audioSynth.playHover()}>
+                  <a href={it.link} className="sm-panel-item" onClick={closeMenu}>
                     <span className="sm-panel-itemLabel" style={{ '--item-index': idx } as React.CSSProperties}>
                       {it.label}
                     </span>
@@ -165,7 +156,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 <ul className="sm-socials-list">
                   {socialItems.map((s, i) => (
                     <li key={s.label + i} className="sm-socials-item" style={{ '--social-index': i } as React.CSSProperties}>
-                      <a href={s.link} target="_blank" rel="noopener noreferrer" className="sm-socials-link" onClick={() => audioSynth.playClick()} onMouseEnter={() => audioSynth.playHover()}>
+                      <a href={s.link} target="_blank" rel="noopener noreferrer" className="sm-socials-link">
                         {s.label}
                       </a>
                     </li>

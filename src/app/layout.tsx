@@ -53,7 +53,6 @@ export const metadata: Metadata = {
 };
 
 import { Bebas_Neue, DM_Mono, Instrument_Serif } from 'next/font/google';
-import SoundProvider from '../components/SoundProvider';
 
 const bebasNeue = Bebas_Neue({
   weight: '400',
@@ -105,9 +104,7 @@ export default function RootLayout({
             })
           }}
         />
-        <SoundProvider>
-          {children}
-        </SoundProvider>
+        {children}
         <Analytics />
         <SpeedInsights />
       </body>
