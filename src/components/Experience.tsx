@@ -1,5 +1,11 @@
 const experiences = [
   {
+    date: "Mar 2026 – May 2026",
+    role: "Data Science & Analytics",
+    company: "Wheeltrix",
+    desc: "Successfully completed the Data Science & Analytics Course, developing core competencies in data processing, analytics, and modeling methodologies.",
+  },
+  {
     date: "May 2025 – Jul 2025",
     role: "Data Analyst Intern",
     company: "Unified Mentor Pvt. Ltd.",
