@@ -93,9 +93,33 @@ export default async function ProjectPage({
               lineHeight: 0.9, 
               letterSpacing: '-0.02em',
               color: 'var(--fg)',
-              margin: '0'
+              margin: '0',
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '20px'
             }}>
-              {project.name}
+              {project.title}
+              {project.marker === 'IN PRODUCTION' && (
+                <img 
+                  src="/deployed_sticker.png" 
+                  alt="Deployed" 
+                  style={{ 
+                    height: 'clamp(70px, 9vw, 120px)', 
+                    objectFit: 'contain' 
+                  }} 
+                />
+              )}
+              {project.marker === 'IN DEVELOPMENT' && (
+                <img 
+                  src="/development_sticker.png" 
+                  alt="In Development" 
+                  style={{ 
+                    height: 'clamp(70px, 9vw, 120px)', 
+                    objectFit: 'contain' 
+                  }} 
+                />
+              )}
             </h1>
             
             <div style={{ 
@@ -106,7 +130,7 @@ export default async function ProjectPage({
               maxWidth: '800px',
               marginTop: '1rem'
             }}>
-              {project.desc}
+              {project.basicDescription}
             </div>
           </div>
         </section>
@@ -121,7 +145,7 @@ export default async function ProjectPage({
           <div style={{ padding: '2rem 3rem', borderRight: '1px solid var(--border)' }}>
             <div style={{ fontSize: '11px', color: 'var(--muted)', letterSpacing: '0.1em', marginBottom: '1rem', textTransform: 'uppercase' }}>Technologies</div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-              {project.stack.map(tech => (
+              {project.technologies.map(tech => (
                 <span key={tech} style={{ 
                   fontSize: '11px', 
                   fontFamily: "'DM Mono', monospace",
@@ -164,24 +188,42 @@ export default async function ProjectPage({
         {/* Overview Section */}
         <section style={{ padding: '8rem 3rem' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '4rem', maxWidth: '1000px', margin: '0 auto' }}>
+            
+            {project.problemStatement && (
+              <div>
+                <div style={{ fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '2rem' }}>
+                  01 — The Problem
+                </div>
+                <div style={{ 
+                  fontFamily: "'Instrument Serif', serif", 
+                  fontSize: 'clamp(24px, 4vw, 42px)', 
+                  lineHeight: 1.4,
+                  color: 'var(--fg)',
+                  fontStyle: 'italic'
+                }}>
+                  "{project.problemStatement}"
+                </div>
+              </div>
+            )}
+
             <div>
               <div style={{ fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '2rem' }}>
-                01 — Overview
+                02 — Overview
               </div>
               <div style={{ 
-                fontFamily: "'Instrument Serif', serif", 
-                fontSize: 'clamp(24px, 4vw, 42px)', 
-                lineHeight: 1.4,
-                color: 'var(--fg)' 
+                fontFamily: "'DM Mono', monospace", 
+                fontSize: '16px', 
+                lineHeight: 1.8,
+                color: 'var(--muted)' 
               }}>
-                {project.overview || project.fullDesc}
+                {project.mainDescription}
               </div>
             </div>
             
-            {project.challenges && (
-              <div style={{ marginTop: '4rem' }}>
+            {project.futureScopes && (
+              <div style={{ marginTop: '2rem' }}>
                 <div style={{ fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '2rem' }}>
-                  02 — Challenges & Solutions
+                  03 — Drawbacks & Future Scope
                 </div>
                 <div style={{ 
                   fontSize: '16px', 
@@ -189,7 +231,7 @@ export default async function ProjectPage({
                   color: 'var(--muted)',
                   fontFamily: "'DM Mono', monospace"
                 }}>
-                  {project.challenges}
+                  {project.futureScopes}
                 </div>
               </div>
             )}
@@ -238,7 +280,7 @@ export default async function ProjectPage({
               lineHeight: 1,
               transition: 'color 0.3s'
             }}>
-              {nextProject.name} →
+              {nextProject.title} →
             </div>
           </Link>
         </section>

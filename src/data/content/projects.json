@@ -1,0 +1,206 @@
+{
+  "currentProject": {
+    "num": "CURRENT",
+    "slug": "skycast",
+    "title": "SKYCAST",
+    "basicDescription": "High-fidelity weather application with dynamic video backgrounds and real-time insights.",
+    "mainDescription": "SkyCast is a premium weather application featuring a dynamic video background system that responds to real-time meteorological data. It includes a sophisticated dashboard with editorial-grade typography, staggered entrance animations, and an actionable 'Insights' panel that derives weather advice directly from API forecast data.",
+    "problemStatement": "Weather apps are usually boring lists of numbers. I wanted to build something that made you FEEL the weather before you even stepped outside.",
+    "technologies": [
+      "Next.js",
+      "TypeScript",
+      "React",
+      "Framer Motion",
+      "Weather API"
+    ],
+    "futureScopes": "The forecast calls for live radar maps and 14-day predictions, ensuring you never get caught out when the weather decides to rain on your parade.",
+    "imagePaths": [],
+    "github": "https://github.com/Christophermathai/SkyCast"
+  },
+  "projects": [
+    {
+      "num": "PROJECT 01",
+      "slug": "attendx",
+      "title": "ATTENDX",
+      "basicDescription": "AI-powered facial recognition attendance system. Live face detection removes manual roll-call.",
+      "mainDescription": "ATTENDX is an AI-powered facial recognition attendance system that eliminates manual roll-call through live face detection. It features a robust admin dashboard with automated low-attendance flags, real-time analytics, and secure data storage. The frontend is built with React and deployed on Vercel, integrating seamlessly with a Python/Flask backend and OpenCV for high-accuracy recognition.",
+      "problemStatement": "Teachers were spending 15 minutes of every lecture just calling out names. Why not just look at the class and know who is there?",
+      "technologies": [
+        "Python",
+        "Flask",
+        "OpenCV",
+        "React",
+        "SQLite",
+        "Vercel"
+      ],
+      "futureScopes": "It currently struggles in dim lighting, proving that even AI can't see in the dark. Next up: infrared vision and liveness detection to catch proxy-attendance artists red-handed.",
+      "imagePaths": [],
+      "github": "https://github.com/Christophermathai/AttendX"
+    },
+    {
+      "num": "PROJECT 02",
+      "slug": "ielts-speaking-app",
+      "title": "IELTS SPEAKING APP",
+      "basicDescription": "Full-stack voice practice platform with real-time transcription and automated IELTS scoring.",
+      "mainDescription": "A comprehensive full-stack voice practice platform tailored for IELTS candidates. It leverages Google Cloud Speech-to-Text for real-time transcription and employs automated scoring algorithms to evaluate fluency, vocabulary, and grammar. The application guides users through multi-part question sessions and provides instant, detailed analytics to track improvement over time.",
+      "problemStatement": "Practicing for the IELTS speaking test alone is almost impossible without feedback. This acts as a digital examiner.",
+      "technologies": [
+        "Next.js",
+        "TypeScript",
+        "Google Cloud STT",
+        "REST API"
+      ],
+      "futureScopes": "Future improvements will bring native mobile apps and deeper AI coaching—so it can finally teach you the difference between 'desert' and 'dessert' without judging you.",
+      "imagePaths": [],
+      "github": "https://github.com/Christophermathai/ILETS-Speaking-Tester"
+    },
+    {
+      "num": "PROJECT 03",
+      "slug": "collab-library",
+      "title": "COLLAB LIBRARY",
+      "basicDescription": "AI-powered academic platform for document sharing, summarization, and translation.",
+      "mainDescription": "The Collaborative Online Library is a digital platform designed for college students to share and access academic resources like eBooks, notes, and research papers. It features advanced document categorization, AI-powered summarization, translation, MCQ generation, and voice-to-text capabilities. It also includes role-based access control and real-time search with admin analytics.",
+      "problemStatement": "Students often drown in long PDFs right before exams. We built this so you can summarize a 100-page paper in the time it takes to drink a coffee.",
+      "technologies": [
+        "Django",
+        "Python",
+        "JavaScript",
+        "AI/ML",
+        "REST API"
+      ],
+      "futureScopes": "Next up is a mobile-optimized reader mode and deeper LDAP integration, plus fixing the parser so it stops throwing a tantrum when you upload a textbook heavier than your backpack.",
+      "imagePaths": [],
+      "github": "https://github.com/Christophermathai/Collaborative-Online-Libary-"
+    },
+    {
+      "num": "PROJECT 04",
+      "slug": "ev-sales-analysis",
+      "title": "EV SALES ANALYSIS",
+      "basicDescription": "Multi-year analysis of India's electric vehicle adoption trends across states.",
+      "mainDescription": "A comprehensive data analysis project examining India's electric vehicle adoption trends over multiple years across various states and vehicle classes. By processing raw government datasets, the project produced industry-ready visualizations and actionable policy insights, highlighting growth patterns, regional disparities, and market penetration.",
+      "problemStatement": "Everyone says EV is the future, but no one was looking at the actual ground-level sales data to prove it.",
+      "technologies": [
+        "Python",
+        "Pandas",
+        "Seaborn",
+        "Matplotlib"
+      ],
+      "futureScopes": "The next phase wires in real-time charging station data, proving once and for all whether range anxiety is driving sales into a ditch.",
+      "imagePaths": [],
+      "github": "https://github.com/Christophermathai/Electric-Vehicle-Sales-by-State-in-India-Data-Analysis"
+    },
+    {
+      "num": "PROJECT 05",
+      "slug": "gymease",
+      "title": "GYMEASE",
+      "basicDescription": "Comprehensive gym management system currently deployed in production.",
+      "mainDescription": "GymEase is a comprehensive, production-ready gym management system built with Next.js and SQLite. It features secure authentication, role-based access for owners and trainers, and real-time dashboard analytics. The platform handles member management, fee plans, subscription tracking, and payment records with full audit logging. It is currently deployed and actively used in gyms.",
+      "problemStatement": "Local gyms were using pen and paper or outdated 90s software to track memberships. GymEase brings them into the cloud era.",
+      "technologies": [
+        "Next.js",
+        "TypeScript",
+        "React",
+        "SQLite",
+        "Tailwind CSS"
+      ],
+      "futureScopes": "While it already flexes a multi-tenant architecture for franchises, the next milestone is hardware integration—so the software doesn't just manage the gym, it literally opens the doors.",
+      "imagePaths": [],
+      "github": "https://github.com/Christophermathai/Gym-Managend-system---GymEase",
+      "marker": "IN PRODUCTION"
+    },
+    {
+      "num": "PROJECT 06",
+      "slug": "coca-cola-stock-predictor",
+      "title": "COCA‑COLA STOCK PREDICTOR",
+      "basicDescription": "ML pipeline forecasting stock prices via technical indicators and feature engineering.",
+      "mainDescription": "A data science project that analyzes and predicts Coca-Cola stock prices using Python and machine learning. It encompasses end-to-end data cleaning, exploratory visualizations, and the calculation of technical indicators. The pipeline compares multiple Scikit-learn regressors, evaluating them with strict metrics, and includes live data updates for real-time forecasting.",
+      "problemStatement": "Stock prediction is notorious for being inaccurate. Can we reliably forecast blue-chip stability using classic ML indicators?",
+      "technologies": [
+        "Python",
+        "Scikit-learn",
+        "Pandas",
+        "Matplotlib",
+        "Jupyter Notebook"
+      ],
+      "futureScopes": "It currently struggles with sudden market crashes—because black swan events are notoriously hard to bottle. Adding financial sentiment analysis will give it a better taste of market volatility.",
+      "imagePaths": [],
+      "github": "https://github.com/Christophermathai/Coca-Cola-Stock--Live-and-Updated-Data-Science-Project-"
+    },
+    {
+      "num": "PROJECT 07",
+      "slug": "disasterres-net",
+      "title": "DISASTERRES-NET",
+      "basicDescription": "Deep learning model utilizing ResNet architecture for disaster detection and response.",
+      "mainDescription": "DisasterRes-Net is an AI-driven project focused on disaster response and management. Utilizing advanced deep learning techniques, specifically the ResNet architecture, the system is designed to analyze imagery and data to detect and assess natural disasters in real-time, aiding emergency services in coordinating faster and more effective responses.",
+      "problemStatement": "During a natural disaster, every second counts. Manual review of satellite imagery is too slow, so we trained a ResNet model to automate it.",
+      "technologies": [
+        "Python",
+        "Deep Learning",
+        "ResNet",
+        "Computer Vision"
+      ],
+      "futureScopes": "Future plans involve plugging into live drone feeds, taking disaster response times from a slow walk to a full sprint when every second counts.",
+      "imagePaths": [],
+      "github": "https://github.com/jeswintom22/DisasterRes-Net"
+    },
+    {
+      "num": "PROJECT 08",
+      "slug": "covid-clinical-trials",
+      "title": "COVID CLINICAL TRIALS",
+      "basicDescription": "End-to-end analysis of global COVID-19 clinical trials using Python and Tableau.",
+      "mainDescription": "An end-to-end analysis of global COVID-19 clinical trials to extract meaningful trends and insights. The project involved rigorous data cleaning and trend analysis segmented by country, phase, and intervention type. Python was used for data processing, while Tableau was utilized to create interactive visualizations and a final comprehensive summary.",
+      "problemStatement": "The sheer volume of COVID-19 research was overwhelming. We needed a dashboard that cut through the noise and showed exactly which trials were succeeding.",
+      "technologies": [
+        "Python",
+        "Tableau",
+        "Data Analysis",
+        "Pandas"
+      ],
+      "futureScopes": "The current dataset is a static snapshot. Building an automated pipeline to the WHO databases will finally cure its reliance on manual updates.",
+      "imagePaths": [],
+      "github": "https://github.com/Christophermathai/covid-clinical-trials-analysis"
+    },
+    {
+      "num": "PROJECT 09",
+      "slug": "web-threat-analysis",
+      "title": "WEB THREAT ANALYSIS",
+      "basicDescription": "Cybersecurity tool using deep learning for real-time web threat detection.",
+      "mainDescription": "Web-Threat-Analysis is a robust cybersecurity tool that leverages deep learning to detect web-based threats. It features a real-time monitoring system and utilizes Pandas, Seaborn, and Matplotlib for extensive data visualization. Built primarily with Python, it serves as a powerful utility for cybersecurity research and threat analysis.",
+      "problemStatement": "Signature-based antivirus tools are always one step behind zero-day exploits. Deep learning allows us to catch threats based on behavior instead of known signatures.",
+      "technologies": [
+        "Python",
+        "Deep Learning",
+        "Pandas",
+        "Cybersecurity"
+      ],
+      "futureScopes": "Deep learning models are notoriously secretive 'black boxes'. Adding Explainable AI (XAI) will force the system to finally confess exactly why it flagged your download.",
+      "imagePaths": [],
+      "github": "https://github.com/Christophermathai/Web-Threat-Analysis"
+    },
+    {
+      "num": "PROJECT 10",
+      "slug": "govmind-ai",
+      "title": "GOVMIND AI",
+      "basicDescription": "AI-Powered Public Knowledge, Rights & Compliance Platform transforming fragmented government data into structured knowledge.",
+      "mainDescription": "GovMind AI acts as an intelligent decision-support platform that continuously ingests official government information, structures it into searchable knowledge, determines user eligibility for schemes, analyzes legal documents, and provides transparent answers with complete source citations using RAG and Rule-Based Reasoning.",
+      "problemStatement": "Millions of citizens and businesses lose opportunities every year because government information is scattered, written in complex legal terminology, and nearly impossible to easily apply to their specific situations.",
+      "technologies": [
+        "Next.js",
+        "Neon",
+        "Python",
+        "RAG",
+        "AI Agents"
+      ],
+      "futureScopes": "The roadmap includes a voice assistant, multilingual support, and proactive AI agents—turning it into a true public knowledge infrastructure rather than just another chatbot.",
+      "imagePaths": [],
+      "keyFeatures": [
+        "Citizen Intelligence: Automatically determines scheme eligibility, scholarships, and grants based on user profiles.",
+        "Rights & Contract Intelligence: AI identifies high-risk clauses, auto-renewals, and missing protections in legal agreements.",
+        "Business Compliance Assistant: Guides MSMEs through GST, factory regulations, and labor compliance.",
+        "Opportunity Recommendation Engine: Proactively recommends new funds and skill programs instead of forcing users to search."
+      ],
+      "marker": "IN DEVELOPMENT",
+      "github": "https://github.com/Christophermathai/GovMind-AI"
+    }
+  ]
+}

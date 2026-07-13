@@ -11,7 +11,7 @@ export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeProject, setActiveProject] = useState<Project>({
     ...currentProject,
-    name: 'ERROR'
+    title: 'ERROR'
   });
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function ProjectsPage() {
               const repoName = parts[4];
               setActiveProject(prev => ({
                 ...prev,
-                name: repoName.replace(/-/g, ' ').toUpperCase(),
+                title: repoName.replace(/-/g, ' ').toUpperCase(),
                 github: `https://github.com/Christophermathai/${repoName}`
               }));
             }
@@ -120,7 +120,7 @@ export default function ProjectsPage() {
             <div style={{ position: 'relative', zIndex: 1 }}>
               <span className="project-num" style={{ color: 'var(--accent)' }}>{activeProject.num}</span>
               <div className="project-arrow" style={{ color: 'var(--accent)' }}>↗</div>
-              <h3 className="project-name" style={{ fontSize: 'clamp(32px, 4vw, 48px)', textShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>{activeProject.name}</h3>
+              <h3 className="project-name" style={{ fontSize: 'clamp(32px, 4vw, 48px)', textShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>{activeProject.title}</h3>
               {activeProject.github && (
                 <a
                   href={activeProject.github}
@@ -182,10 +182,26 @@ export default function ProjectsPage() {
                   </div>
                   <div className="project-arrow">↗</div>
                 </div>
-                <h3 className="project-name">{project.name}</h3>
-                <p className="project-desc">{project.desc}</p>
+                <h3 className="project-name" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                  {project.title}
+                  {project.marker === 'IN PRODUCTION' && (
+                    <img 
+                      src="/deployed_sticker.png" 
+                      alt="Deployed" 
+                      style={{ height: '24px', objectFit: 'contain' }} 
+                    />
+                  )}
+                  {project.marker === 'IN DEVELOPMENT' && (
+                    <img 
+                      src="/development_sticker.png" 
+                      alt="In Development" 
+                      style={{ height: '24px', objectFit: 'contain' }} 
+                    />
+                  )}
+                </h3>
+                <p className="project-desc">{project.basicDescription}</p>
                 <div className="project-stack">
-                  {project.stack.map((tag) => (
+                  {project.technologies.map((tag) => (
                     <span className="stack-tag" key={tag}>{tag}</span>
                   ))}
                 </div>
@@ -199,10 +215,40 @@ export default function ProjectsPage() {
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <button className="modal-close" onClick={() => setSelectedProject(null)}>×</button>
               <span className="project-num">{selectedProject.num}</span>
-              <h3 className="project-name" style={{ fontSize: 'clamp(36px, 5vw, 64px)', marginTop: '0.5rem', marginBottom: '2rem' }}>{selectedProject.name}</h3>
-              <p className="project-desc" style={{ fontSize: '15px', marginBottom: '2rem' }}>{selectedProject.fullDesc}</p>
+              <h3 className="project-name" style={{ 
+                fontSize: 'clamp(36px, 5vw, 64px)', 
+                marginTop: '0.5rem', 
+                marginBottom: '2rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                flexWrap: 'wrap'
+              }}>
+                {selectedProject.title}
+                {selectedProject.marker === 'IN PRODUCTION' && (
+                  <img 
+                    src="/deployed_sticker.png" 
+                    alt="Deployed" 
+                    style={{ 
+                      height: 'clamp(30px, 4vw, 50px)', 
+                      objectFit: 'contain' 
+                    }} 
+                  />
+                )}
+                {selectedProject.marker === 'IN DEVELOPMENT' && (
+                  <img 
+                    src="/development_sticker.png" 
+                    alt="In Development" 
+                    style={{ 
+                      height: 'clamp(30px, 4vw, 50px)', 
+                      objectFit: 'contain' 
+                    }} 
+                  />
+                )}
+              </h3>
+              <p className="project-desc" style={{ fontSize: '15px', marginBottom: '2rem' }}>{selectedProject.mainDescription}</p>
               <div className="project-stack" style={{ marginBottom: selectedProject.github ? '2rem' : '3rem' }}>
-                {selectedProject.stack.map((tag) => (
+                {selectedProject.technologies.map((tag) => (
                   <span className="stack-tag" key={tag} style={{ fontSize: '12px', padding: '6px 14px' }}>{tag}</span>
                 ))}
               </div>

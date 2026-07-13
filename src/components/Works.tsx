@@ -57,10 +57,10 @@ export default function Works() {
               </div>
               <div className="project-arrow">↗</div>
             </div>
-            <h3 className="project-name">{project.name}</h3>
-            <p className="project-desc">{project.desc}</p>
+            <h3 className="project-name">{project.title}</h3>
+            <p className="project-desc">{project.basicDescription}</p>
             <div className="project-stack">
-              {project.stack.map((tag) => (
+              {project.technologies.map((tag) => (
                 <span className="stack-tag" key={tag}>{tag}</span>
               ))}
             </div>
@@ -157,10 +157,10 @@ export default function Works() {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="modal-close" onClick={() => setSelectedProject(null)}>×</button>
             <span className="project-num">{selectedProject.num}</span>
-            <h3 className="project-name" style={{ fontSize: 'clamp(36px, 5vw, 64px)', marginTop: '0.5rem', marginBottom: '2rem' }}>{selectedProject.name}</h3>
-            <p className="project-desc" style={{ fontSize: '15px', marginBottom: '2rem' }}>{selectedProject.fullDesc}</p>
+            <h3 className="project-name" style={{ fontSize: 'clamp(36px, 5vw, 64px)', marginTop: '0.5rem', marginBottom: '2rem' }}>{selectedProject.title}</h3>
+            <p className="project-desc" style={{ fontSize: '15px', marginBottom: '2rem' }}>{selectedProject.mainDescription}</p>
             <div className="project-stack" style={{ marginBottom: selectedProject.github ? '2rem' : '3rem' }}>
-              {selectedProject.stack.map((tag) => (
+              {selectedProject.technologies.map((tag) => (
                 <span className="stack-tag" key={tag} style={{ fontSize: '12px', padding: '6px 14px' }}>{tag}</span>
               ))}
             </div>
