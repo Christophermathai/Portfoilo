@@ -206,29 +206,48 @@ export default function ProjectsPage() {
                   <span className="stack-tag" key={tag} style={{ fontSize: '12px', padding: '6px 14px' }}>{tag}</span>
                 ))}
               </div>
-              {selectedProject.github && (
-                <a
-                  href={selectedProject.github}
-                  target="_blank"
-                  rel="noreferrer"
+              <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                <Link 
+                  href={`/projects/${selectedProject.slug}`}
                   style={{
                     display: 'inline-block',
                     fontFamily: "'Bebas Neue', sans-serif",
                     fontSize: '18px',
                     letterSpacing: '0.1em',
                     color: 'var(--bg)',
-                    background: 'var(--accent)',
+                    background: 'var(--fg)',
                     padding: '10px 24px',
                     textDecoration: 'none',
                     transition: 'opacity 0.2s',
-                    marginTop: '1rem'
                   }}
                   onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
                   onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
                 >
-                  VIEW ON GITHUB ↗
-                </a>
-              )}
+                  READ FULL CASE STUDY →
+                </Link>
+                {selectedProject.github && (
+                  <a
+                    href={selectedProject.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      display: 'inline-block',
+                      fontFamily: "'Bebas Neue', sans-serif",
+                      fontSize: '18px',
+                      letterSpacing: '0.1em',
+                      color: 'var(--bg)',
+                      background: 'var(--accent)',
+                      padding: '10px 24px',
+                      textDecoration: 'none',
+                      transition: 'opacity 0.2s',
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
+                    onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+                  >
+                    VIEW ON GITHUB ↗
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         )}

@@ -765,3 +765,17 @@ footer {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
 }
+
+/* Helper Hover Classes */
+.hover-accent-link:hover {
+  color: var(--accent) !important;
+  border-bottom: 1px solid var(--accent) !important;
+}
+
+.hover-opacity-btn:hover {
+  opacity: 0.8 !important;
+}
+
+.hover-accent-text:hover {
+  color: var(--accent) !important;
+}
