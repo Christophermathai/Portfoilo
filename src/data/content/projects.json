@@ -4,6 +4,8 @@
     "slug": "skycast",
     "title": "SKYCAST",
     "basicDescription": "High-fidelity weather application with dynamic video backgrounds and real-time insights.",
+    "seoDescription": "SkyCast is a Next.js weather app with dynamic video backgrounds driven by live meteorological data, editorial typography, and a real-time AI insights panel.",
+    "schemaType": "SoftwareApplication",
     "mainDescription": "SkyCast is a premium weather application featuring a dynamic video background system that responds to real-time meteorological data. It includes a sophisticated dashboard with editorial-grade typography, staggered entrance animations, and an actionable 'Insights' panel that derives weather advice directly from API forecast data.",
     "problemStatement": "Weather apps are usually boring lists of numbers. I wanted to build something that made you FEEL the weather before you even stepped outside.",
     "technologies": [
@@ -23,6 +25,8 @@
       "slug": "attendx",
       "title": "ATTENDX",
       "basicDescription": "AI-powered facial recognition attendance system. Live face detection removes manual roll-call.",
+      "seoDescription": "AttendX is an AI-powered facial recognition attendance system built with Python, Flask, and OpenCV that automates roll-call and provides real-time admin analytics.",
+      "schemaType": "SoftwareApplication",
       "mainDescription": "ATTENDX is an AI-powered facial recognition attendance system that eliminates manual roll-call through live face detection. It features a robust admin dashboard with automated low-attendance flags, real-time analytics, and secure data storage. The frontend is built with React and deployed on Vercel, integrating seamlessly with a Python/Flask backend and OpenCV for high-accuracy recognition.",
       "problemStatement": "Teachers were spending 15 minutes of every lecture just calling out names. Why not just look at the class and know who is there?",
       "technologies": [
@@ -42,6 +46,8 @@
       "slug": "ielts-speaking-app",
       "title": "IELTS SPEAKING APP",
       "basicDescription": "Full-stack voice practice platform with real-time transcription and automated IELTS scoring.",
+      "seoDescription": "A full-stack IELTS speaking practice platform using Google Cloud Speech-to-Text for real-time transcription and automated band-score evaluation across fluency, vocabulary, and grammar.",
+      "schemaType": "SoftwareApplication",
       "mainDescription": "A comprehensive full-stack voice practice platform tailored for IELTS candidates. It leverages Google Cloud Speech-to-Text for real-time transcription and employs automated scoring algorithms to evaluate fluency, vocabulary, and grammar. The application guides users through multi-part question sessions and provides instant, detailed analytics to track improvement over time.",
       "problemStatement": "Practicing for the IELTS speaking test alone is almost impossible without feedback. This acts as a digital examiner.",
       "technologies": [
@@ -59,6 +65,8 @@
       "slug": "collab-library",
       "title": "COLLAB LIBRARY",
       "basicDescription": "AI-powered academic platform for document sharing, summarization, and translation.",
+      "seoDescription": "A collaborative digital library for college students featuring AI-powered document summarization, translation, MCQ generation, and role-based access control built with Django and Python.",
+      "schemaType": "SoftwareApplication",
       "mainDescription": "The Collaborative Online Library is a digital platform designed for college students to share and access academic resources like eBooks, notes, and research papers. It features advanced document categorization, AI-powered summarization, translation, MCQ generation, and voice-to-text capabilities. It also includes role-based access control and real-time search with admin analytics.",
       "problemStatement": "Students often drown in long PDFs right before exams. We built this so you can summarize a 100-page paper in the time it takes to drink a coffee.",
       "technologies": [
@@ -77,6 +85,8 @@
       "slug": "ev-sales-analysis",
       "title": "EV SALES ANALYSIS",
       "basicDescription": "Multi-year analysis of India's electric vehicle adoption trends across states.",
+      "seoDescription": "A Python data analysis project examining India's state-wise electric vehicle adoption trends using Pandas, Seaborn, and Matplotlib to surface actionable policy insights.",
+      "schemaType": "CreativeWork",
       "mainDescription": "A comprehensive data analysis project examining India's electric vehicle adoption trends over multiple years across various states and vehicle classes. By processing raw government datasets, the project produced industry-ready visualizations and actionable policy insights, highlighting growth patterns, regional disparities, and market penetration.",
       "problemStatement": "Everyone says EV is the future, but no one was looking at the actual ground-level sales data to prove it.",
       "technologies": [
@@ -94,6 +104,8 @@
       "slug": "gymease",
       "title": "GYMEASE",
       "basicDescription": "Comprehensive gym management system currently deployed in production.",
+      "seoDescription": "GymEase is a production-ready gym management system built with Next.js and SQLite, handling member management, fee plans, subscription tracking, and role-based access for owners and trainers.",
+      "schemaType": "SoftwareApplication",
       "mainDescription": "GymEase is a comprehensive, production-ready gym management system built with Next.js and SQLite. It features secure authentication, role-based access for owners and trainers, and real-time dashboard analytics. The platform handles member management, fee plans, subscription tracking, and payment records with full audit logging. It is currently deployed and actively used in gyms.",
       "problemStatement": "Local gyms were using pen and paper or outdated 90s software to track memberships. GymEase brings them into the cloud era.",
       "technologies": [
@@ -111,8 +123,10 @@
     {
       "num": "PROJECT 06",
       "slug": "coca-cola-stock-predictor",
-      "title": "COCA‑COLA STOCK PREDICTOR",
+      "title": "COCA\u2011COLA STOCK PREDICTOR",
       "basicDescription": "ML pipeline forecasting stock prices via technical indicators and feature engineering.",
+      "seoDescription": "A data science project that forecasts Coca-Cola stock prices using Scikit-learn regressors, technical indicator engineering, and end-to-end data cleaning with live data updates.",
+      "schemaType": "CreativeWork",
       "mainDescription": "A data science project that analyzes and predicts Coca-Cola stock prices using Python and machine learning. It encompasses end-to-end data cleaning, exploratory visualizations, and the calculation of technical indicators. The pipeline compares multiple Scikit-learn regressors, evaluating them with strict metrics, and includes live data updates for real-time forecasting.",
       "problemStatement": "Stock prediction is notorious for being inaccurate. Can we reliably forecast blue-chip stability using classic ML indicators?",
       "technologies": [
@@ -131,6 +145,8 @@
       "slug": "disasterres-net",
       "title": "DISASTERRES-NET",
       "basicDescription": "Deep learning model utilizing ResNet architecture for disaster detection and response.",
+      "seoDescription": "DisasterRes-Net is an AI model using ResNet deep learning architecture to detect and assess natural disasters from imagery in real-time, supporting faster emergency response coordination.",
+      "schemaType": "SoftwareApplication",
       "mainDescription": "DisasterRes-Net is an AI-driven project focused on disaster response and management. Utilizing advanced deep learning techniques, specifically the ResNet architecture, the system is designed to analyze imagery and data to detect and assess natural disasters in real-time, aiding emergency services in coordinating faster and more effective responses.",
       "problemStatement": "During a natural disaster, every second counts. Manual review of satellite imagery is too slow, so we trained a ResNet model to automate it.",
       "technologies": [
@@ -148,6 +164,8 @@
       "slug": "covid-clinical-trials",
       "title": "COVID CLINICAL TRIALS",
       "basicDescription": "End-to-end analysis of global COVID-19 clinical trials using Python and Tableau.",
+      "seoDescription": "An end-to-end analysis of global COVID-19 clinical trial data using Python and Tableau to surface trends by country, phase, and intervention type through interactive dashboards.",
+      "schemaType": "CreativeWork",
       "mainDescription": "An end-to-end analysis of global COVID-19 clinical trials to extract meaningful trends and insights. The project involved rigorous data cleaning and trend analysis segmented by country, phase, and intervention type. Python was used for data processing, while Tableau was utilized to create interactive visualizations and a final comprehensive summary.",
       "problemStatement": "The sheer volume of COVID-19 research was overwhelming. We needed a dashboard that cut through the noise and showed exactly which trials were succeeding.",
       "technologies": [
@@ -165,6 +183,8 @@
       "slug": "web-threat-analysis",
       "title": "WEB THREAT ANALYSIS",
       "basicDescription": "Cybersecurity tool using deep learning for real-time web threat detection.",
+      "seoDescription": "A Python cybersecurity tool leveraging deep learning for behaviour-based real-time web threat detection, with rich visualizations via Pandas, Seaborn, and Matplotlib.",
+      "schemaType": "SoftwareApplication",
       "mainDescription": "Web-Threat-Analysis is a robust cybersecurity tool that leverages deep learning to detect web-based threats. It features a real-time monitoring system and utilizes Pandas, Seaborn, and Matplotlib for extensive data visualization. Built primarily with Python, it serves as a powerful utility for cybersecurity research and threat analysis.",
       "problemStatement": "Signature-based antivirus tools are always one step behind zero-day exploits. Deep learning allows us to catch threats based on behavior instead of known signatures.",
       "technologies": [
@@ -182,6 +202,8 @@
       "slug": "govmind-ai",
       "title": "GOVMIND AI",
       "basicDescription": "AI-Powered Public Knowledge, Rights & Compliance Platform transforming fragmented government data into structured knowledge.",
+      "seoDescription": "GovMind AI is a RAG-powered platform that transforms fragmented government data into citizen-facing scheme eligibility checks, legal document analysis, and MSME compliance guidance.",
+      "schemaType": "SoftwareApplication",
       "mainDescription": "GovMind AI acts as an intelligent decision-support platform that continuously ingests official government information, structures it into searchable knowledge, determines user eligibility for schemes, analyzes legal documents, and provides transparent answers with complete source citations using RAG and Rule-Based Reasoning.",
       "problemStatement": "Millions of citizens and businesses lose opportunities every year because government information is scattered, written in complex legal terminology, and nearly impossible to easily apply to their specific situations.",
       "technologies": [

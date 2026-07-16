@@ -1,9 +1,12 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { projects, currentProject, Project } from '@/data/projects';
 import CustomCursor from '@/components/CustomCursor';
 
-// We need to support standard static generation
+const BASE_URL = 'https://christophermathai.vercel.app';
+
+// ─── Static params ────────────────────────────────────────────────────────────
 export function generateStaticParams() {
   const allProjects = [currentProject, ...projects];
   return allProjects.map((p) => ({
@@ -11,13 +14,110 @@ export function generateStaticParams() {
   }));
 }
 
+// ─── Per-project metadata ─────────────────────────────────────────────────────
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const allProjects = [currentProject, ...projects];
+  const project = allProjects.find((p) => p.slug === slug);
+
+  if (!project) {
+    return { title: 'Project Not Found' };
+  }
+
+  const description = project.seoDescription ?? project.basicDescription;
+  // Keep titles in ALL CAPS to match the industrial aesthetic and avoid multi-word casing bugs
+  const pageTitle = project.title;
+  const canonicalUrl = `${BASE_URL}/projects/${slug}`;
+
+  return {
+    title: pageTitle,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${project.title} | Christopher Mathai`,
+      description,
+      url: canonicalUrl,
+      type: 'article',
+      images: [
+        {
+          url: '/SocialProfile.avif',
+          width: 1200,
+          height: 630,
+          alt: `${project.title} — Christopher Mathai`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${project.title} | Christopher Mathai`,
+      description,
+      images: ['/SocialProfile.avif'],
+    },
+  };
+}
+
+// ─── JSON-LD builder ──────────────────────────────────────────────────────────
+// Per-project application categories — avoids the blanket 'WebApplication' misclassification
+const APP_CATEGORY_MAP: Record<string, string> = {
+  skycast:                  'WebApplication',
+  gymease:                  'BusinessApplication',
+  attendx:                  'EducationalApplication',
+  'ielts-speaking-app':     'EducationalApplication',
+  'collab-library':         'EducationalApplication',
+  'disasterres-net':        'UtilitiesApplication',
+  'web-threat-analysis':    'SecurityApplication',
+  'govmind-ai':             'GovernmentApplication',
+  // data/analysis projects use CreativeWork schema — category not needed
+};
+
+function buildJsonLd(project: Project) {
+  const canonicalUrl = `${BASE_URL}/projects/${project.slug}`;
+  const schemaType = project.schemaType ?? 'SoftwareApplication';
+  const description = project.seoDescription ?? project.basicDescription;
+
+  const base = {
+    '@context': 'https://schema.org',
+    '@type': schemaType,
+    name: project.title,
+    description,
+    url: canonicalUrl,
+    author: {
+      '@type': 'Person',
+      name: 'Christopher Mathai',
+      url: BASE_URL,
+    },
+    ...(project.github ? { codeRepository: project.github } : {}),
+    ...(project.technologies?.length
+      ? { keywords: project.technologies.join(', ') }
+      : {}),
+  };
+
+  if (schemaType === 'SoftwareApplication') {
+    const applicationCategory = APP_CATEGORY_MAP[project.slug] ?? 'WebApplication';
+    return {
+      ...base,
+      applicationCategory,
+      operatingSystem: 'Web',
+    };
+  }
+
+  return base;
+}
+
+// ─── Page component ───────────────────────────────────────────────────────────
 export default async function ProjectPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  
+
   const allProjects = [currentProject, ...projects];
   const projectIndex = allProjects.findIndex((p) => p.slug === slug);
   const project = allProjects[projectIndex];
@@ -27,15 +127,23 @@ export default async function ProjectPage({
   }
 
   // Determine next project for the footer
-  const nextProject = projectIndex < allProjects.length - 1 
-    ? allProjects[projectIndex + 1] 
-    : allProjects[0]; // loop back to start
+  const nextProject =
+    projectIndex < allProjects.length - 1
+      ? allProjects[projectIndex + 1]
+      : allProjects[0];
 
   return (
     <>
       <CustomCursor />
+
+      {/* Structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(project)) }}
+      />
+
       <main style={{ minHeight: '100vh', background: 'var(--bg)', paddingTop: '4rem' }}>
-        
+
         {/* Navigation Bar */}
         <div style={{ padding: '0 3rem', marginBottom: '4rem' }}>
           <Link
@@ -63,11 +171,11 @@ export default async function ProjectPage({
         <section style={{ padding: '0 3rem 6rem', borderBottom: '1px solid var(--border)' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <span style={{ 
-                fontFamily: "'Bebas Neue', sans-serif", 
-                fontSize: '16px', 
-                color: 'var(--accent)', 
-                letterSpacing: '0.1em' 
+              <span style={{
+                fontFamily: "'Bebas Neue', sans-serif",
+                fontSize: '16px',
+                color: 'var(--accent)',
+                letterSpacing: '0.1em'
               }}>
                 {project.num}
               </span>
@@ -86,11 +194,11 @@ export default async function ProjectPage({
                 </span>
               )}
             </div>
-            
-            <h1 style={{ 
-              fontFamily: "'Bebas Neue', sans-serif", 
-              fontSize: 'clamp(64px, 10vw, 140px)', 
-              lineHeight: 0.9, 
+
+            <h1 style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: 'clamp(64px, 10vw, 140px)',
+              lineHeight: 0.9,
               letterSpacing: '-0.02em',
               color: 'var(--fg)',
               margin: '0',
@@ -101,31 +209,31 @@ export default async function ProjectPage({
             }}>
               {project.title}
               {project.marker === 'IN PRODUCTION' && (
-                <img 
-                  src="/deployed_sticker.png" 
-                  alt="Deployed" 
-                  style={{ 
-                    height: 'clamp(70px, 9vw, 120px)', 
-                    objectFit: 'contain' 
-                  }} 
+                <img
+                  src="/deployed_sticker.png"
+                  alt="Deployed"
+                  style={{
+                    height: 'clamp(70px, 9vw, 120px)',
+                    objectFit: 'contain'
+                  }}
                 />
               )}
               {project.marker === 'IN DEVELOPMENT' && (
-                <img 
-                  src="/development_sticker.png" 
-                  alt="In Development" 
-                  style={{ 
-                    height: 'clamp(70px, 9vw, 120px)', 
-                    objectFit: 'contain' 
-                  }} 
+                <img
+                  src="/development_sticker.png"
+                  alt="In Development"
+                  style={{
+                    height: 'clamp(70px, 9vw, 120px)',
+                    objectFit: 'contain'
+                  }}
                 />
               )}
             </h1>
-            
-            <div style={{ 
-              fontFamily: "'Instrument Serif', serif", 
-              fontSize: 'clamp(20px, 3vw, 32px)', 
-              fontStyle: 'italic', 
+
+            <div style={{
+              fontFamily: "'Instrument Serif', serif",
+              fontSize: 'clamp(20px, 3vw, 32px)',
+              fontStyle: 'italic',
               color: 'var(--muted)',
               maxWidth: '800px',
               marginTop: '1rem'
@@ -136,9 +244,9 @@ export default async function ProjectPage({
         </section>
 
         {/* Details Bar */}
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
           borderBottom: '1px solid var(--border)',
           background: 'var(--surface)'
         }}>
@@ -146,10 +254,10 @@ export default async function ProjectPage({
             <div style={{ fontSize: '11px', color: 'var(--muted)', letterSpacing: '0.1em', marginBottom: '1rem', textTransform: 'uppercase' }}>Technologies</div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {project.technologies.map(tech => (
-                <span key={tech} style={{ 
-                  fontSize: '11px', 
+                <span key={tech} style={{
+                  fontSize: '11px',
                   fontFamily: "'DM Mono', monospace",
-                  border: '1px solid var(--border)', 
+                  border: '1px solid var(--border)',
                   padding: '4px 10px',
                   color: 'var(--fg)'
                 }}>
@@ -158,7 +266,7 @@ export default async function ProjectPage({
               ))}
             </div>
           </div>
-          
+
           <div style={{ padding: '2rem 3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <div style={{ fontSize: '11px', color: 'var(--muted)', letterSpacing: '0.1em', marginBottom: '1rem', textTransform: 'uppercase' }}>Links</div>
             <div style={{ display: 'flex', gap: '1rem' }}>
@@ -188,15 +296,15 @@ export default async function ProjectPage({
         {/* Overview Section */}
         <section style={{ padding: '8rem 3rem' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '4rem', maxWidth: '1000px', margin: '0 auto' }}>
-            
+
             {project.problemStatement && (
               <div>
                 <div style={{ fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '2rem' }}>
                   01 — The Problem
                 </div>
-                <div style={{ 
-                  fontFamily: "'Instrument Serif', serif", 
-                  fontSize: 'clamp(24px, 4vw, 42px)', 
+                <div style={{
+                  fontFamily: "'Instrument Serif', serif",
+                  fontSize: 'clamp(24px, 4vw, 42px)',
                   lineHeight: 1.4,
                   color: 'var(--fg)',
                   fontStyle: 'italic'
@@ -210,24 +318,24 @@ export default async function ProjectPage({
               <div style={{ fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '2rem' }}>
                 02 — Overview
               </div>
-              <div style={{ 
-                fontFamily: "'DM Mono', monospace", 
-                fontSize: '16px', 
+              <div style={{
+                fontFamily: "'DM Mono', monospace",
+                fontSize: '16px',
                 lineHeight: 1.8,
-                color: 'var(--muted)' 
+                color: 'var(--muted)'
               }}>
                 {project.mainDescription}
               </div>
             </div>
-            
+
             {project.futureScopes && (
               <div style={{ marginTop: '2rem' }}>
                 <div style={{ fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '2rem' }}>
                   03 — Drawbacks & Future Scope
                 </div>
-                <div style={{ 
-                  fontSize: '16px', 
-                  lineHeight: 1.8, 
+                <div style={{
+                  fontSize: '16px',
+                  lineHeight: 1.8,
                   color: 'var(--muted)',
                   fontFamily: "'DM Mono', monospace"
                 }}>
@@ -241,29 +349,29 @@ export default async function ProjectPage({
         {/* Media / Key Features */}
         {project.keyFeatures && project.keyFeatures.length > 0 && (
           <section style={{ padding: '0', background: 'var(--surface)', borderTop: '1px solid var(--border)' }}>
-             <div style={{ padding: '4rem 3rem' }}>
-               <div style={{ fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '3rem' }}>
-                 Core Features
-               </div>
-               <div style={{ 
-                 display: 'grid', 
-                 gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-                 gap: '1px',
-                 background: 'var(--border)',
-                 border: '1px solid var(--border)'
-               }}>
-                 {project.keyFeatures.map((feature, i) => (
-                   <div key={i} style={{ padding: '3rem', background: 'var(--surface)' }}>
-                     <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '24px', color: 'var(--fg)', marginBottom: '1rem' }}>
-                       FEATURE {String(i + 1).padStart(2, '0')}
-                     </div>
-                     <div style={{ fontSize: '14px', color: 'var(--muted)', lineHeight: 1.6 }}>
-                       {feature}
-                     </div>
-                   </div>
-                 ))}
-               </div>
-             </div>
+            <div style={{ padding: '4rem 3rem' }}>
+              <div style={{ fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '3rem' }}>
+                Core Features
+              </div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '1px',
+                background: 'var(--border)',
+                border: '1px solid var(--border)'
+              }}>
+                {project.keyFeatures.map((feature, i) => (
+                  <div key={i} style={{ padding: '3rem', background: 'var(--surface)' }}>
+                    <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '24px', color: 'var(--fg)', marginBottom: '1rem' }}>
+                      FEATURE {String(i + 1).padStart(2, '0')}
+                    </div>
+                    <div style={{ fontSize: '14px', color: 'var(--muted)', lineHeight: 1.6 }}>
+                      {feature}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </section>
         )}
 
@@ -273,9 +381,9 @@ export default async function ProjectPage({
             Next Project
           </div>
           <Link href={`/projects/${nextProject.slug}`} style={{ textDecoration: 'none', display: 'inline-block' }}>
-            <div className="hover-accent-text" style={{ 
-              fontFamily: "'Bebas Neue', sans-serif", 
-              fontSize: 'clamp(48px, 8vw, 120px)', 
+            <div className="hover-accent-text" style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: 'clamp(48px, 8vw, 120px)',
               color: 'var(--fg)',
               lineHeight: 1,
               transition: 'color 0.3s'

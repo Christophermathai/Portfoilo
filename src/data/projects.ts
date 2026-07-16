@@ -15,6 +15,10 @@ export type Project = {
   imagePaths?: string[];
   github?: string;
   marker?: string;
+  /** SEO-optimised meta description (~150 chars, sentence case). Falls back to basicDescription. */
+  seoDescription?: string;
+  /** JSON-LD schema type: 'SoftwareApplication' | 'CreativeWork' */
+  schemaType?: 'SoftwareApplication' | 'CreativeWork';
 };
 
 export const currentProject: Project = projectsData.currentProject as Project;
