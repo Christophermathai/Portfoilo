@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useRef, useState, useEffect } from 'react';
+import { soundManager } from '@/utils/sound';
 
 export interface StaggeredMenuItem {
   label: string;
@@ -49,8 +50,15 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   onMenuClose
 }) => {
   const [open, setOpen] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(false);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const toggleBtnRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    soundManager.init();
+    const unsub = soundManager.subscribe(setSoundEnabled);
+    return unsub;
+  }, []);
 
   const toggleMenu = useCallback(() => {
     setOpen(prev => {
@@ -103,29 +111,53 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             <span className="nav-name" style={{ zIndex: 100 }}>CM · Portfolio</span>
           </div>
 
-          <button
-            ref={toggleBtnRef}
-            className="sm-toggle"
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            onClick={toggleMenu}
-            onMouseEnter={() => {
-              if (window.innerWidth >= 1024 && !open) toggleMenu();
-            }}
-            type="button"
-            style={{ color: changeMenuColorOnOpen && open ? openMenuButtonColor : menuButtonColor }}
-          >
-            <span className="sm-toggle-textWrap" aria-hidden="true">
-              <span className="sm-toggle-textInner">
-                <span className="sm-toggle-line">Menu</span>
-                <span className="sm-toggle-line">Close</span>
+          <div className="sm-header-controls">
+            <button
+              className={`sm-sound-toggle ${soundEnabled ? 'is-active' : ''}`}
+              type="button"
+              onClick={() => {
+                soundManager.toggle();
+              }}
+              onMouseEnter={() => soundManager.playHover()}
+              title={soundEnabled ? "Mute audio feedback" : "Enable tactile audio feedback"}
+              aria-label={soundEnabled ? "Mute audio" : "Enable tactile audio"}
+            >
+              <span className="sm-sound-bars" aria-hidden="true">
+                <span className="bar bar-1"></span>
+                <span className="bar bar-2"></span>
+                <span className="bar bar-3"></span>
               </span>
-            </span>
-            <span className="sm-icon" aria-hidden="true">
-              <span className="sm-icon-line plusH" />
-              <span className="sm-icon-line plusV" />
-            </span>
-          </button>
+              <span className="sm-sound-label">{soundEnabled ? "SFX ON" : "SFX OFF"}</span>
+            </button>
+
+            <button
+              ref={toggleBtnRef}
+              className="sm-toggle"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              onClick={() => {
+                soundManager.playClick();
+                toggleMenu();
+              }}
+              onMouseEnter={() => {
+                soundManager.playHover();
+                if (window.innerWidth >= 1024 && !open) toggleMenu();
+              }}
+              type="button"
+              style={{ color: changeMenuColorOnOpen && open ? openMenuButtonColor : menuButtonColor }}
+            >
+              <span className="sm-toggle-textWrap" aria-hidden="true">
+                <span className="sm-toggle-textInner">
+                  <span className="sm-toggle-line">Menu</span>
+                  <span className="sm-toggle-line">Close</span>
+                </span>
+              </span>
+              <span className="sm-icon" aria-hidden="true">
+                <span className="sm-icon-line plusH" />
+                <span className="sm-icon-line plusV" />
+              </span>
+            </button>
+          </div>
         </header>
 
         {/* Panel */}
@@ -141,7 +173,15 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             <ul className="sm-panel-list" data-numbering={displayItemNumbering || undefined}>
               {items.map((it, idx) => (
                 <li className="sm-panel-itemWrap" key={it.label + idx}>
-                  <a href={it.link} className="sm-panel-item" onClick={closeMenu}>
+                  <a 
+                    href={it.link} 
+                    className="sm-panel-item" 
+                    onMouseEnter={() => soundManager.playHover()}
+                    onClick={() => {
+                      soundManager.playClick();
+                      closeMenu();
+                    }}
+                  >
                     <span className="sm-panel-itemLabel" style={{ '--item-index': idx } as React.CSSProperties}>
                       {it.label}
                     </span>
@@ -156,7 +196,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 <ul className="sm-socials-list">
                   {socialItems.map((s, i) => (
                     <li key={s.label + i} className="sm-socials-item" style={{ '--social-index': i } as React.CSSProperties}>
-                      <a href={s.link} target="_blank" rel="noopener noreferrer" className="sm-socials-link">
+                      <a 
+                        href={s.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="sm-socials-link"
+                        onMouseEnter={() => soundManager.playHover()}
+                        onClick={() => soundManager.playClick()}
+                      >
                         {s.label}
                       </a>
                     </li>
@@ -180,7 +227,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         }
         
         .sm-scope.fixed-wrapper {
-          position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; pointer-events: none;
+          position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9990; pointer-events: none;
         }
         .sm-scope.relative-wrapper {
           position: relative; width: 100%; height: 100%; z-index: 1000; pointer-events: none;
@@ -241,11 +288,76 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           transition: color 0.3s;
         }
         .sm-scope.open .nav-name { color: var(--fg); }
+
+        .sm-header-controls {
+          display: inline-flex;
+          align-items: center;
+          gap: 1.25rem;
+          pointer-events: auto;
+        }
+
+        .sm-sound-toggle {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid var(--border);
+          padding: 5px 12px;
+          border-radius: 999px;
+          color: var(--muted);
+          font-family: 'DM Mono', monospace;
+          font-size: 10px;
+          letter-spacing: 0.12em;
+          transition: all 0.25s ease;
+          outline: none;
+        }
+        .sm-sound-toggle:hover {
+          border-color: var(--accent);
+          color: var(--fg);
+          background: rgba(255, 61, 0, 0.06);
+        }
+        .sm-sound-toggle.is-active {
+          border-color: rgba(255, 61, 0, 0.4);
+          color: var(--fg);
+          background: rgba(255, 61, 0, 0.08);
+        }
+        .sm-sound-toggle.is-active .sm-sound-label {
+          color: var(--accent);
+        }
+        .sm-sound-bars {
+          display: inline-flex;
+          align-items: flex-end;
+          gap: 2px;
+          height: 10px;
+          width: 9px;
+        }
+        .sm-sound-bars .bar {
+          width: 1.5px;
+          background: currentColor;
+          border-radius: 1px;
+          transition: height 0.2s;
+        }
+        .sm-sound-bars .bar-1 { height: 4px; }
+        .sm-sound-bars .bar-2 { height: 9px; }
+        .sm-sound-bars .bar-3 { height: 6px; }
+        .sm-sound-toggle.is-active .sm-sound-bars .bar-1 {
+          animation: soundWave 0.8s ease-in-out infinite alternate;
+        }
+        .sm-sound-toggle.is-active .sm-sound-bars .bar-2 {
+          animation: soundWave 0.6s ease-in-out infinite alternate 0.15s;
+        }
+        .sm-sound-toggle.is-active .sm-sound-bars .bar-3 {
+          animation: soundWave 0.75s ease-in-out infinite alternate 0.3s;
+        }
+        @keyframes soundWave {
+          0% { height: 2px; }
+          100% { height: 10px; }
+        }
         
         /* Toggle Button */
         .sm-toggle {
           position: relative; display: inline-flex; align-items: center; gap: 0.8rem;
-          background: transparent; border: none; cursor: pointer;
+          background: transparent; border: none;
           font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
           transition: color 0.3s ease; outline: none;
         }

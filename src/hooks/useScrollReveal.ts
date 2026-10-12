@@ -4,8 +4,6 @@ import { useEffect } from "react";
 
 export function useScrollReveal() {
   useEffect(() => {
-    const reveals = document.querySelectorAll(".reveal");
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -18,8 +16,23 @@ export function useScrollReveal() {
       { threshold: 0.12 }
     );
 
-    reveals.forEach((el) => observer.observe(el));
+    const observeAll = () => {
+      document.querySelectorAll(".reveal:not(.visible)").forEach((el) => {
+        observer.observe(el);
+      });
+    };
 
-    return () => observer.disconnect();
+    observeAll();
+
+    const mutationObserver = new MutationObserver(() => {
+      observeAll();
+    });
+
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
   }, []);
 }

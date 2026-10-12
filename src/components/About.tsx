@@ -1,3 +1,7 @@
+'use client';
+
+import { soundManager } from '@/utils/sound';
+
 const skillTags = [
   "Python", "React", "Django", "Next.js", "TypeScript", "OpenCV",
   "Scikit-learn", "Pandas", "Flask", "MySQL", "REST APIs", "Google Cloud",
@@ -28,7 +32,13 @@ export default function About() {
           </div>
           <div className="about-skills">
             {skillTags.map((tag) => (
-              <span className="skill-tag" key={tag}>{tag}</span>
+              <span 
+                className="skill-tag" 
+                key={tag}
+                onMouseEnter={() => soundManager.playHover()}
+              >
+                {tag}
+              </span>
             ))}
           </div>
         </div>

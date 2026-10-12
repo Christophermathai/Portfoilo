@@ -4,13 +4,17 @@ import { useState, useEffect } from 'react';
 
 import Link from 'next/link';
 import { projects, Project } from '@/data/projects';
+import { soundManager } from '@/utils/sound';
 
 export default function Works() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedProject(null);
+      if (e.key === 'Escape') {
+        soundManager.playModal(false);
+        setSelectedProject(null);
+      }
     };
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
@@ -36,7 +40,11 @@ export default function Works() {
           <div 
             className="project-card reveal" 
             key={i}
-            onClick={() => setSelectedProject(project)}
+            onMouseEnter={() => soundManager.playCardHover()}
+            onClick={() => {
+              soundManager.playModal(true);
+              setSelectedProject(project);
+            }}
             style={{ cursor: 'pointer' }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -61,7 +69,13 @@ export default function Works() {
             <p className="project-desc">{project.basicDescription}</p>
             <div className="project-stack">
               {project.technologies.map((tag) => (
-                <span className="stack-tag" key={tag}>{tag}</span>
+                <span 
+                  className="stack-tag" 
+                  key={tag}
+                  onMouseEnter={() => soundManager.playHover()}
+                >
+                  {tag}
+                </span>
               ))}
             </div>
           </div>
@@ -92,6 +106,8 @@ export default function Works() {
               transition: "background 0.3s",
               cursor: "pointer",
             }}
+            onMouseEnter={() => soundManager.playHover()}
+            onClick={() => soundManager.playClick()}
             onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}
             onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
           >
@@ -153,15 +169,37 @@ export default function Works() {
       </div>
 
       {selectedProject && (
-        <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
+        <div 
+          className="modal-overlay" 
+          onClick={() => {
+            soundManager.playModal(false);
+            setSelectedProject(null);
+          }}
+        >
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelectedProject(null)}>×</button>
+            <button 
+              className="modal-close" 
+              onClick={() => {
+                soundManager.playModal(false);
+                setSelectedProject(null);
+              }}
+              onMouseEnter={() => soundManager.playHover()}
+            >
+              ×
+            </button>
             <span className="project-num">{selectedProject.num}</span>
             <h3 className="project-name" style={{ fontSize: 'clamp(36px, 5vw, 64px)', marginTop: '0.5rem', marginBottom: '2rem' }}>{selectedProject.title}</h3>
             <p className="project-desc" style={{ fontSize: '15px', marginBottom: '2rem' }}>{selectedProject.mainDescription}</p>
             <div className="project-stack" style={{ marginBottom: selectedProject.github ? '2rem' : '3rem' }}>
               {selectedProject.technologies.map((tag) => (
-                <span className="stack-tag" key={tag} style={{ fontSize: '12px', padding: '6px 14px' }}>{tag}</span>
+                <span 
+                  className="stack-tag" 
+                  key={tag} 
+                  style={{ fontSize: '12px', padding: '6px 14px' }}
+                  onMouseEnter={() => soundManager.playHover()}
+                >
+                  {tag}
+                </span>
               ))}
             </div>
               <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
@@ -178,6 +216,8 @@ export default function Works() {
                     textDecoration: 'none',
                     transition: 'opacity 0.2s',
                   }}
+                  onMouseEnter={() => soundManager.playHover()}
+                  onClick={() => soundManager.playClick()}
                   onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
                   onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
                 >
@@ -198,6 +238,8 @@ export default function Works() {
                       padding: '10px 24px',
                       transition: 'opacity 0.2s',
                     }}
+                    onMouseEnter={() => soundManager.playHover()}
+                    onClick={() => soundManager.playClick()}
                     onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
                     onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
                   >
